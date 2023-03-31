@@ -1,11 +1,12 @@
-import {View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import { View } from "react-native";
+import React, { useEffect, useState, Suspense } from "react";
 import {
   Button,
   FlatList,
   Icon,
   IconButton,
   ChevronLeftIcon,
+  ChevronRightIcon,
   Image,
   Box,
   Flex,
@@ -17,66 +18,55 @@ import {
   Heading,
   Input,
   SearchIcon,
-} from 'native-base';
-import axios from 'axios';
-import {LogBox} from 'react-native';
-import SearchBar from './SearchBar';
-const UltimateComponent = ({navigation, route}) => {
+} from "native-base";
+import axios from "axios";
+import { LogBox } from "react-native";
+import SearchBar from "./SearchBar";
+const UltimateComponent = ({ navigation, route }) => {
   var lower = route.params.data.description;
   var texto = route.params.data.name;
   const [armors, setArmors] = useState([]);
-  const uri = 'https://eldenring.fanapis.com/api/' + lower;
+  const uri = "https://eldenring.fanapis.com/api/" + lower;
   const [uriUpdated, setUriUpdated] = useState(uri);
   const [pageNumber, setPageNumber] = useState(1);
   const [callBack, setCallBack] = useState(true);
   const [searchData, setSearchData] = useState();
   LogBox.ignoreLogs([
-    'Non-serializable values were found in the navigation state',
+    "Non-serializable values were found in the navigation state",
   ]);
 
-  increment = () => {
-    if (pageNumber < 20) {
-      setPageNumber(pageNumber + 1);
-    
-    } else {
-      setPageNumber(1);
-   
-    }
+  const increment = () => {
+    setPageNumber((pageNumber) => (pageNumber < 20 ? pageNumber + 1 : 1));
   };
-  decrement = () => {
-    if (pageNumber > 1) {
-      setPageNumber(pageNumber - 1);
-     
-    } else {
-      setPageNumber(1);
-     
-    }
+
+  const decrement = () => {
+    setPageNumber((pageNumber) => (pageNumber > 0 ? pageNumber - 1 : 20));
   };
 
   useEffect(() => {
     getApi();
-    console.log('BALBLALBAL', route.params.data.name);
-  }, [callBack]);
+    // console.log('BALBLALBAL', route.params.data.name);
+  }, [uri, callBack]);
 
   const getApi = async () => {
     axios
       .get(uriUpdated)
-      .then(response => {
+      .then((response) => {
         const allArmors = response.data.data;
         // console.log(allArmors);
         setArmors(allArmors);
         setSearchData(allArmors);
       })
-      .catch(error => alert('ERROR', error));
+      .catch((error) => alert("ERROR", error));
   };
-  const handleSearch = value => {
+  const handleSearch = (value) => {
     if (value.length === 0) {
       setArmors(searchData);
-      console.log('serach data', searchData);
+      console.log("serach data", searchData);
       setCallBack(!callBack);
     }
-    const filteredData = armors.filter(item =>
-      item.name.toLowerCase().includes(value.toLowerCase()),
+    const filteredData = armors.filter((item) =>
+      item.name.toLowerCase().includes(value.toLowerCase())
     );
 
     if (filteredData.lenght === 0) {
@@ -89,92 +79,118 @@ const UltimateComponent = ({navigation, route}) => {
   };
 
   return (
-    <Box bgColor={'primary.100'}>
+    <Box bgColor={"primary.100"}>
       {/* Header Start */}
-      <Text color={'white'}>Select for more details {pageNumber}</Text>
       <Button
-        width={'1/6'}
+        width={"10%"}
+        m={2}
+        borderRadius={50}
         bgColor="primary.2"
         onPress={() => {
           navigation.goBack();
-        }}>
-        <ChevronLeftIcon />
+        }}
+      >
+        <ChevronLeftIcon color={"white"} />
       </Button>
-      <Flex direction="row" justify={'space-between'}>
+
+      <SearchBar onSearch={handleSearch} texto={texto} />
+
+      <Flex direction="row" justify={"space-between"} m={3}>
         <Button
-          width={'1/6'}
-          colorScheme="primary"
+          width={"10%"}
+          borderRadius={20}
+          bgColor="transparent"
           onPress={() => {
+            decrement();
             setUriUpdated(
-              'https://eldenring.fanapis.com/api/' +
+              "https://eldenring.fanapis.com/api/" +
                 lower +
-                '?limit=20&' +
-                '?&page=' +
-                pageNumber,
+                "?limit=20&" +
+                "?&page=" +
+                pageNumber
             );
-            increment();
+
             console.log(pageNumber);
             console.log(uriUpdated);
             setCallBack(!callBack);
-          }}>
-          Next Page
+          }}
+        >
+          <ChevronLeftIcon color={"white"} />
+        </Button>
+        <Text color={"white"} my={"auto"}>
+          {pageNumber}
+        </Text>
+
+        <Button
+          width={"10%"}
+          bgColor="transparent"
+          borderRadius={20}
+          onPress={() => {
+            increment();
+            setUriUpdated(
+              "https://eldenring.fanapis.com/api/" +
+                lower +
+                "?limit=20&" +
+                "?&page=" +
+                pageNumber
+            );
+            console.log(pageNumber);
+            console.log(uriUpdated);
+            setCallBack(!callBack);
+          }}
+        >
+          <ChevronRightIcon color={"white"} />
         </Button>
 
         {/* KADA CES RADITI AOW, STAVI DA SE RENERAJU SLIKICE UZ AFINITY, SA ONIM ZAGRADAMA I IFOVIMA S ? */}
-
-        <Text color={'white'}>{pageNumber}</Text>
-
-        <Button
-          width={'1/6'}
-          colorScheme="primary"
-          onPress={() => {
-            setUriUpdated(
-              'https://eldenring.fanapis.com/api/' +
-                lower +
-                '?limit=20&' +
-                '?&page=' +
-                pageNumber,
-            );
-            decrement();
-            console.log(pageNumber);
-            console.log(uriUpdated);
-            setCallBack(!callBack);
-          }}>
-          Prev Page
-        </Button>
       </Flex>
 
-      <FlatList
-        ListHeaderComponent={
-          <SearchBar onSearch={handleSearch} texto={texto} />
+      <React.Suspense
+        fallback={
+          <Box flex={1}>
+            <Text size={"2xl"}>Loading...</Text>
+          </Box>
         }
-        bg={'primary.100'}
-        data={armors}
-        contentContainerStyle={{margin: 0, width: '100%'}}
-        renderItem={item => (
-          <VStack>
-            <Button
-              bgColor={'primary.2'}
-              rounded={'lg'}
-              m={4}
-              onPress={() => {
-                navigation.navigate(texto + 'Deatils', {item});
-              }}>
-              <Text color="white" textAlign={'center'}  fontFamily={'Mantinia'} p={2} fontSize={'lg'}>
-                {item.item.name}
-              </Text>
-              <Image
-                source={{
-                  uri: item.item.image,
+      >
+        <FlatList
+          bg={"primary.100"}
+          data={armors}
+          contentContainerStyle={{ margin: 0, width: "100%" }}
+          renderItem={(item2) => (
+            <VStack>
+              <Button
+                bgColor={"primary.2"}
+                rounded={"lg"}
+                m={4}
+                onPress={() => {
+                  console.log("OVOVOOVOVOVOOVOV", item2);
+                  navigation.navigate(texto + "Deatils", { item2, texto });
                 }}
-                alt="Alternate Text"
-                size="xl"
-              />
-            </Button>
-          </VStack>
-        )}
-        keyExtractor={item => item.id}
-      />
+              >
+                <Center>
+                  <Text
+                    color="white"
+                    textAlign={"center"}
+                    fontFamily={"Mantinia"}
+                    p={2}
+                    fontSize={"lg"}
+                  >
+                    {item2.item.name}
+                  </Text>
+                  <Image
+                    source={{
+                      uri: item2.item.image,
+                    }}
+                    alt="Alternate Text"
+                    size="xl"
+                  />
+                </Center>
+              </Button>
+            </VStack>
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      </React.Suspense>
     </Box>
   );
 };

@@ -13,7 +13,7 @@ export const categoris=[
     },
     {
         id:3,
-        name:'Ashes of War',
+        name:'AoW',
         description:'ashes',
         thumbnail:require('../assets/AoW.png')
     },

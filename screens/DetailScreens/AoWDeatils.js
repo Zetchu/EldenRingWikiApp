@@ -1,4 +1,3 @@
-import { TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import {
   Button,
@@ -12,11 +11,13 @@ import {
   ScrollView,
 } from "native-base";
 import Header from "../../components/Header";
+import { TouchableOpacity } from "react-native";
 import { _storeData } from "../../storage";
 
-const TalismansDeatils = ({ navigation, route }) => {
+const AoWDeatils = ({ navigation, route }) => {
   const [text, setText] = useState(route.params.item2.item.description);
   const [readMore, setReadMore] = useState(false);
+
   return (
     <Box flex={1}>
       <Header
@@ -26,15 +27,7 @@ const TalismansDeatils = ({ navigation, route }) => {
           <TouchableOpacity
             style={{ justifyContent: "center" }}
             onPress={() => {
-              _storeData(
-                route.params.item2.item.id,
-
-                route.params.item2.item.name,
-
-                route.params.item2.item.image,
-
-                route.params.texto
-              );
+              _storeData();
             }}
           >
             <FavouriteIcon color="white" />
@@ -52,23 +45,36 @@ const TalismansDeatils = ({ navigation, route }) => {
             size="2xl"
           />
         </Box>
+
         <Box px={4}>
           <Text color={"white"} fontSize={"2xl"}>
             {route.params.item2.item.name}
           </Text>
-          <Text color={"white"} fontSize={"md"}>
-            {route.params.item2.item.type}
-          </Text>
-          <Text color={"white"} fontSize={"md"} textTransform="uppercase">
-            Effect: {route.params.item2.item.effect}
-          </Text>
-          <Text color="gray.500" fontFamily={"normal"}>
-            {text}
+
+          <Box>
+            <Text
+              color={"white"}
+              fontSize={"2xl"}
+              py={3}
+              fontFamily={"heading"}
+            >
+              Afinity: {route.params.item2.item.affinity}
+            </Text>
+          </Box>
+
+          <Text color={"white"} fontSize={"xl"} fontFamily={"heading"}>
+            Skill: {route.params.item2.item.skill}
           </Text>
         </Box>
+
+        <Center px={4}>
+          <Text color="gray.500" fontFamily={"heading"}>
+            {text}
+          </Text>
+        </Center>
       </ScrollView>
     </Box>
   );
 };
 
-export default TalismansDeatils;
+export default AoWDeatils;
