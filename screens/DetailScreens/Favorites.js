@@ -1,4 +1,4 @@
-import { LogBox, TouchableOpacity, View } from "react-native";
+import { LogBox, TouchableOpacity, View, SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   Box,
@@ -9,18 +9,19 @@ import {
   Flex,
   Image,
   ScrollView,
+  DeleteIcon,
 } from "native-base";
 
 import axios from "axios";
 
 import React, { useEffect, useState } from "react";
-import FavoritesItems from "../../components/FavoritesItems";
-import FavItem from "../../components/FavItem";
+
 // import { _retrieveData } from "../../storage";
 
 const Favorites = ({ navigation }) => {
   const [favorites, setFavorites] = useState([]);
   const [retreived, setRetreived] = useState();
+  const [callBack, setCallBack] = useState(false);
 
   const uri = "https://eldenring.fanapis.com/api/";
   const [urii, setUrii] = useState(uri);
@@ -59,13 +60,26 @@ const Favorites = ({ navigation }) => {
     }
   };
 
-  const handleRemove = (id) => {
+  const handleRemove = async (id) => {
     const updatedFavorites = favorites.filter((favorite) => favorite.id !== id);
     setFavorites(updatedFavorites);
+
+    try {
+      const value = updatedFavorites
+        .map((favorite) => {
+          const { id, name, image, category } = favorite;
+          return `${id},${name},${image},${category}`;
+        })
+        .join(",");
+      await AsyncStorage.setItem("@MySuperStore:armors", value);
+    } catch (error) {
+      console.log("Error storing data: ", error);
+    }
   };
 
   _clear = async () => {
     await AsyncStorage.setItem("@MySuperStore:armors", "");
+    setFavorites([]);
   };
 
   useEffect(() => {
@@ -75,7 +89,7 @@ const Favorites = ({ navigation }) => {
   }, []);
 
   return (
-    <Box bg={"primary.100"} flex={1}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#151922" }}>
       <Flex direction="row" width={"100%"} justifyContent="space-between">
         <Button
           bg="primary.2"
@@ -115,7 +129,11 @@ const Favorites = ({ navigation }) => {
           onPress={() => {
             _clear();
           }}
-        ></Button>
+        >
+          <Center>
+            <DeleteIcon color={"white"} />
+          </Center>
+        </Button>
       </Flex>
       <ScrollView mt={10}>
         {favorites.map((favorite) => (
@@ -178,7 +196,7 @@ const Favorites = ({ navigation }) => {
           </Box>
         ))}
       </ScrollView>
-    </Box>
+    </SafeAreaView>
   );
 };
 

@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from "react-native";
+import { SafeAreaView, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import {
   Button,
@@ -22,7 +22,7 @@ const ArmorsDeatils = ({ navigation, route }) => {
   const [readMore, setReadMore] = useState(false);
 
   return (
-    <Box flex={1}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#151922" }}>
       <Header
         navigation={navigation}
         name={route.params.item2.item.name}
@@ -47,31 +47,6 @@ const ArmorsDeatils = ({ navigation, route }) => {
       />
 
       <ScrollView bg={"primary.100"} flex={1}>
-        <TouchableOpacity
-          onPress={() => {
-            _retrieveData();
-          }}
-        >
-          <FavouriteIcon color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            _clear();
-          }}
-        >
-          <FavouriteIcon color="white" />
-        </TouchableOpacity>
-        {/* <Button
-       w={100}
-        colorScheme="primary"
-        onPress={()=>{
-     
-          console.log('OVO JE TIEM U WEPON DEATILS',route.params.item.item);
-        }}
-      
-      >
-        Log The Item
-      </Button> */}
         <Box bg="primary.100" p={12} rounded="lg">
           <Image
             source={{
@@ -82,7 +57,6 @@ const ArmorsDeatils = ({ navigation, route }) => {
           />
         </Box>
 
-        {/* {console.log('WEPON DETAILS KURAC', route.params.weapon)} */}
         <Text color={"white"} fontSize={"2xl"} px={4}>
           {route.params.item2.item.name}
         </Text>
@@ -190,7 +164,7 @@ const ArmorsDeatils = ({ navigation, route }) => {
           </Box>
         </Center>
       </ScrollView>
-    </Box>
+    </SafeAreaView>
   );
 };
 

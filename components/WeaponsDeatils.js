@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View, SafeAreaView } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
   Button,
@@ -41,12 +41,13 @@ const WeaponsDeatils = ({ navigation, route, item }) => {
   };
 
   return (
-    <Box flex={1}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#151922" }}>
       <Header
         navigation={navigation}
         name={route.params.item2.item.name}
         rightIcon={
           <TouchableOpacity
+            style={{ justifyContent: "center" }}
             onPress={() => {
               _storeData(
                 route.params.item2.item.id,
@@ -60,20 +61,8 @@ const WeaponsDeatils = ({ navigation, route, item }) => {
           </TouchableOpacity>
         }
       />
-      {/* <Text>{texto}</Text> */}
 
       <ScrollView bg={"primary.100"} flex={1}>
-        {/* <Button
-         w={100}
-          colorScheme="primary"
-          onPress={()=>{
-
-            console.log('OVO JE TIEM U WEPON DEATILS',route.params.item.item);
-          }}
-
-        >
-          Log The Item
-        </Button> */}
         <Box bg="primary.100" p={12} rounded="lg">
           <Image
             source={{
@@ -84,7 +73,6 @@ const WeaponsDeatils = ({ navigation, route, item }) => {
           />
         </Box>
 
-        {/* {console.log('WEPON DETAILS KURAC', route.params.weapon)} */}
         <Text color={"white"} fontFamily={"Mantinia"} fontSize={"2xl"} px={4}>
           {route.params.item2.item.name}
         </Text>
@@ -249,29 +237,8 @@ const WeaponsDeatils = ({ navigation, route, item }) => {
             </Box>
           </Box>
         </Center>
-
-        {/*
-    DEFENSE
-
-  <FlatList
-          bg={'blueGray.100'}
-          color="amber.500"
-          numColumns={4}
-          data={route.params.item.item.defence}
-          contentContainerStyle={{width: '100%', margin: 0}}
-          renderItem={item => (
-            <Box>
-              <Text color="black">{item.item.name}</Text>
-              <Text color="black">{item.item.amount}</Text>
-
-            </Box>
-          )}
-          keyExtractor={item => item.name}
-        />
-
-   */}
       </ScrollView>
-    </Box>
+    </SafeAreaView>
   );
 };
 

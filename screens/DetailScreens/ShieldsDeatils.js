@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from "react-native";
+import { SafeAreaView, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import {
   Button,
@@ -20,7 +20,7 @@ const ShieldsDeatils = ({ route, navigation }) => {
   const [readMore, setReadMore] = useState(false);
 
   return (
-    <Box flex={1}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#151922" }}>
       <Header
         navigation={navigation}
         name={route.params.item2.item.name}
@@ -193,35 +193,8 @@ const ShieldsDeatils = ({ route, navigation }) => {
             </Box>
           </Box>
         </Center>
-
-        {/* 
-      DEFENSE
-    
-    <FlatList
-            bg={'blueGray.100'}
-            color="amber.500"
-            numColumns={4}
-            data={route.params.item.item.defence}
-            contentContainerStyle={{width: '100%', margin: 0}}
-            renderItem={item => (
-              <Box>
-                <Text color="black">{item.item.name}</Text>
-                <Text color="black">{item.item.amount}</Text>
-             
-              </Box>
-            )}
-            keyExtractor={item => item.name}
-          />
-    
-    
-     
-    
-    
-    
-    
-     */}
       </ScrollView>
-    </Box>
+    </SafeAreaView>
   );
 };
 

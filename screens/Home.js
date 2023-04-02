@@ -7,6 +7,7 @@ import {
   Center,
   ChevronLeftIcon,
   Container,
+  FavouriteIcon,
   FlatList,
   Flex,
   HStack,
@@ -22,7 +23,7 @@ export default function Home({ navigation }) {
   const [category, setCategory] = useState(categoris);
 
   return (
-    <Box flex={1} bg="primary.100">
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#151922" }}>
       <Flex direction="row" width={"100%"} justifyContent="space-between">
         <Button
           bg="primary.2"
@@ -42,7 +43,9 @@ export default function Home({ navigation }) {
 
         {/* LOGO HERE */}
         <Box justifyContent={"center"}>
-          <Text color="white"> Elden App</Text>
+          <Text color="white" textTransform={"uppercase"} fontSize={"lg"}>
+            Elden App
+          </Text>
         </Box>
 
         <Button
@@ -56,7 +59,9 @@ export default function Home({ navigation }) {
             navigation.navigate("Favorites");
           }}
         >
-          <Center bg="primary.400"></Center>
+          <Center bg="primary.400">
+            <FavouriteIcon color={"white"}></FavouriteIcon>
+          </Center>
         </Button>
       </Flex>
 
@@ -115,6 +120,6 @@ export default function Home({ navigation }) {
       />
 
       {/* flex={1} flexDirection='row' w={'100%'} */}
-    </Box>
+    </SafeAreaView>
   );
 }

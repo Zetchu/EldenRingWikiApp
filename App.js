@@ -11,18 +11,18 @@ import {
   Flex,
   Center,
   ChevronLeftIcon,
+  StatusBar,
   extendTheme,
 } from "native-base";
 import axios from "axios";
 import Header from "./components/Header";
 import Home from "./screens/Home";
-import Weapons from "./screens/Weapons";
-import Armors from "./screens/Armors";
+
 import AoWDeatils from "./screens/DetailScreens/AoWDeatils";
 import WeaponsDeatils from "./components/WeaponsDeatils";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import WeponComponent from "./components/WeponComponent";
+
 import UltimateComponent from "./components/UltimateComponent";
 
 import ArmorsDeatils from "./screens/DetailScreens/ArmorsDeatils";
@@ -39,16 +39,6 @@ import Favorites from "./screens/DetailScreens/Favorites";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
-  const callTestApi = () => {
-    axios
-      .get("https://eldenring.fanapis.com/api/weapons")
-      .then((response) => {
-        console.log("RESPONSE", response?.data);
-      })
-      .catch((error) => {
-        console.log("ERROR", error);
-      });
-  };
 
   const theme = extendTheme({
     colors: {
@@ -71,7 +61,8 @@ export default function App() {
   });
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={{ flex: 1, backgroundColor: "#151922" }}>
+      <StatusBar barStyle="light-content" />
       <NativeBaseProvider theme={theme}>
         <NavigationContainer>
           <Stack.Navigator
@@ -82,8 +73,7 @@ export default function App() {
           >
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Weapons" component={Weapons} />
-            <Stack.Screen name="Armors" component={Armors} />
+
             <Stack.Screen name="AoWDeatils" component={AoWDeatils} />
             <Stack.Screen name="Favorites" component={Favorites} />
             <Stack.Screen
@@ -112,7 +102,7 @@ export default function App() {
           </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>
-    </SafeAreaView>
+    </View>
   );
 }
 

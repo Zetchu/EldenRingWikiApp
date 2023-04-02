@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import React, { useEffect, useState, Suspense } from "react";
 import {
   Button,
@@ -40,12 +40,11 @@ const UltimateComponent = ({ navigation, route }) => {
   };
 
   const decrement = () => {
-    setPageNumber((pageNumber) => (pageNumber > 0 ? pageNumber - 1 : 20));
+    setPageNumber((pageNumber) => (pageNumber > 1 ? pageNumber - 1 : 20));
   };
 
   useEffect(() => {
     getApi();
-    // console.log('BALBLALBAL', route.params.data.name);
   }, [uri, callBack]);
 
   const getApi = async () => {
@@ -53,7 +52,6 @@ const UltimateComponent = ({ navigation, route }) => {
       .get(uriUpdated)
       .then((response) => {
         const allArmors = response.data.data;
-        // console.log(allArmors);
         setArmors(allArmors);
         setSearchData(allArmors);
       })
@@ -74,12 +72,11 @@ const UltimateComponent = ({ navigation, route }) => {
       setCallBack(!callBack);
     } else {
       setArmors(filteredData);
-      // console.log(armors);
     }
   };
 
   return (
-    <Box bgColor={"primary.100"}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#151922" }}>
       {/* Header Start */}
       <Button
         width={"10%"}
@@ -105,7 +102,7 @@ const UltimateComponent = ({ navigation, route }) => {
             setUriUpdated(
               "https://eldenring.fanapis.com/api/" +
                 lower +
-                "?limit=20&" +
+                "?limit=20" +
                 "?&page=" +
                 pageNumber
             );
@@ -130,7 +127,7 @@ const UltimateComponent = ({ navigation, route }) => {
             setUriUpdated(
               "https://eldenring.fanapis.com/api/" +
                 lower +
-                "?limit=20&" +
+                "?limit=20" +
                 "?&page=" +
                 pageNumber
             );
@@ -141,8 +138,6 @@ const UltimateComponent = ({ navigation, route }) => {
         >
           <ChevronRightIcon color={"white"} />
         </Button>
-
-        {/* KADA CES RADITI AOW, STAVI DA SE RENERAJU SLIKICE UZ AFINITY, SA ONIM ZAGRADAMA I IFOVIMA S ? */}
       </Flex>
 
       <React.Suspense
@@ -191,7 +186,7 @@ const UltimateComponent = ({ navigation, route }) => {
           keyExtractor={(item) => item.id}
         />
       </React.Suspense>
-    </Box>
+    </SafeAreaView>
   );
 };
 

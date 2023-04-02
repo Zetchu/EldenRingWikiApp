@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from "react-native";
+import { SafeAreaView, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import {
   Button,
@@ -19,7 +19,7 @@ const IncantationsDeatils = ({ navigation, route }) => {
   const [readMore, setReadMore] = useState(false);
 
   return (
-    <Box flex={1}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#151922" }}>
       <Header
         navigation={navigation}
         name={route.params.item2.item.name}
@@ -120,7 +120,7 @@ const IncantationsDeatils = ({ navigation, route }) => {
           </Box>
         </Center>
       </ScrollView>
-    </Box>
+    </SafeAreaView>
   );
 };
 

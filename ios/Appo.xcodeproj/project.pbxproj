@@ -40,7 +40,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Appo/main.m; sourceTree = "<group>"; };
 		3688F00BE982273F7B201BA7 /* libPods-Appo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Appo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		61B80DD29CC332871B19A3A1 /* Pods-Appo-AppoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Appo-AppoTests.release.xcconfig"; path = "Target Support Files/Pods-Appo-AppoTests/Pods-Appo-AppoTests.release.xcconfig"; sourceTree = "<group>"; };
-		7DB936EFAF964483B065417C /* Mantinia.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Mantinia.otf; path = ../assets/fonts/Mantinia.otf; sourceTree = "<group>"; };
+		7DB936EFAF964483B065417C /* Mantinia.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Mantinia.otf; path = ../assets/fonts/Mantinia.otf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Appo/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84B32F0676119EC44A0A4649 /* Pods-Appo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Appo.debug.xcconfig"; path = "Target Support Files/Pods-Appo/Pods-Appo.debug.xcconfig"; sourceTree = "<group>"; };
 		D2F6134D58F635E4D7EE0D76 /* Pods-Appo-AppoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Appo-AppoTests.debug.xcconfig"; path = "Target Support Files/Pods-Appo-AppoTests/Pods-Appo-AppoTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -146,7 +146,6 @@
 				7DB936EFAF964483B065417C /* Mantinia.otf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -515,7 +514,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.eldenapp;
 				PRODUCT_NAME = Appo;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -541,7 +540,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.eldenapp;
 				PRODUCT_NAME = Appo;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
